@@ -1,12 +1,11 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { Link } from "react-router";
 
 export default function App() {
   return (
     <div>
       <h1>Hello world</h1>
+      <p>Testing 123</p>
+      <Link to="/room/123">ROOM</Link>
     </div>
   );
 }
