@@ -8,7 +8,7 @@ export default function RoomDetails() {
         <div className="mb-4 flex gap-24">
           <input
             type="search"
-            value="YOUTUBE VIDEO LINK"
+            defaultValue="YOUTUBE VIDEO LINK"
             className="bg-amber-300 w-1/3 rounded-xl pl-4"
           />
 
