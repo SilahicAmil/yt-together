@@ -4,7 +4,10 @@ export default function App() {
   const navigate = useNavigate();
 
   async function createRoom() {
-    const res = await fetch("/api/createRoom", {
+    // Pop up modal to set Room Name (use some type of bad word filtering library or something)
+    // Don't create room if modal is exited probably use some type of state or something for that
+
+    const res = await fetch("/api/room/create", {
       method: "POST",
     });
     const json = await res.json();
