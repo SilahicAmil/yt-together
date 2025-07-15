@@ -1,4 +1,24 @@
+import { useEffect } from "react";
+import { useParams } from "react-router";
+
 export default function RoomDetails() {
+  let { id } = useParams()
+
+  async function joinedRoom() {
+    const res = await fetch(`/api/room/${id}`, {
+      method: "GET"
+    })
+
+    const json = await res.json()
+
+    console.log(json)
+  }
+
+
+  useEffect(() => {
+    joinedRoom()
+  })
+
   return (
     <>
       <div className="flex justify-center items-center">
