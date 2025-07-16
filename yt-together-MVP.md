@@ -4,7 +4,7 @@
 
 ## ✅ 1. Room Creation
 
-~~ HTTP `POST /newRoom` ~~
+~~HTTP `POST /newRoom`~~
 
 - Generate unique `roomID`
 - Store room in memory with:
