@@ -2,24 +2,27 @@ import { useEffect } from "react";
 import { useParams } from "react-router";
 
 export default function RoomDetails() {
-  let { id } = useParams()
+  let { id } = useParams();
 
   async function joinedRoom() {
     const res = await fetch(`/api/room/${id}`, {
-      method: "GET"
-    })
+      method: "GET",
+    });
 
-    const json = await res.json()
+    const json = await res.json();
 
-    console.log(json)
+    console.log(json);
   }
 
-
   useEffect(() => {
-    joinedRoom()
-  })
+    joinedRoom();
+  });
 
   return (
+    //
+    //Extract each one of these to its own component
+    // User and Watch History will be some type of reusable like card component
+    //
     <>
       <div className="flex justify-center items-center">
         <h1 className="text-4xl">ROOM NAME</h1>
