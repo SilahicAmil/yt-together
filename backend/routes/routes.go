@@ -6,5 +6,5 @@ import (
 
 func RegisterRouteEvents(server *gin.Engine) {
 	server.POST("/room/create", newRoom)
-	server.GET("/room/:id", joinRoom)
+	server.GET("/ws/:id", joinRoom)
 }

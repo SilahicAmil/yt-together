@@ -1,26 +1,23 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import useWebSocket from "react-use-websocket";
 
 export default function RoomDetails() {
   let { id } = useParams();
 
-  async function joinedRoom() {
-    const res = await fetch(`/api/room/${id}`, {
-      method: "GET",
-    });
+  const socketUrl = "ws://localhost:8080/ws/123"; // Use ws:// when doing ws
 
-    const json = await res.json();
-
-    console.log(json);
-  }
+  const { _, lastMessage } = useWebSocket(socketUrl);
 
   useEffect(() => {
-    joinedRoom();
-  });
+    if (lastMessage !== null) {
+      console.log("Received message:", lastMessage.data);
+    }
+  }, [lastMessage]);
 
   return (
     //
-    //Extract each one of these to its own component
+    // :Extract each one of these to its own component
     // User and Watch History will be some type of reusable like card component
     //
     <>
