@@ -14,12 +14,12 @@ func newRoom(ctx *gin.Context) {
 
 // make this into like a ws/:id
 func joinRoom(ctx *gin.Context) {
-	// roomID := ctx.Param("id")
+	roomID := ctx.Param("id")
 	// ctx.JSON(http.StatusOK, gin.H{"message": "Joined Room ", "roomId": roomID})
 
 	//
 	// create websocket
-	events.Connect(ctx.Writer, ctx.Request)
+	events.Connect(ctx.Writer, ctx.Request, roomID)
 	// create handlePlayer function for like pause and play and loading new video
 	// start with pause and play for new
 	//

@@ -5,9 +5,9 @@ import useWebSocket from "react-use-websocket";
 export default function RoomDetails() {
   let { id } = useParams();
 
-  const socketUrl = "ws://localhost:8080/ws/123"; // Use ws:// when doing ws
+  const socketUrl = `ws://localhost:8080/ws/${id}`; // Use ws:// when doing ws
 
-  const { _, lastMessage } = useWebSocket(socketUrl);
+  const { sendJsonMessage, lastMessage } = useWebSocket(socketUrl);
 
   useEffect(() => {
     if (lastMessage !== null) {
@@ -15,12 +15,17 @@ export default function RoomDetails() {
     }
   }, [lastMessage]);
 
+  function handlePlay() {
+    sendJsonMessage({ action: "play" });
+  }
+
   return (
     //
     // :Extract each one of these to its own component
     // User and Watch History will be some type of reusable like card component
     //
     <>
+      <button onClick={handlePlay}>Handle Play</button>
       <div className="flex justify-center items-center">
         <h1 className="text-4xl">ROOM NAME</h1>
       </div>
@@ -32,7 +37,12 @@ export default function RoomDetails() {
             className="bg-amber-300 lg:w-1/3 rounded-xl pl-4"
           />
 
-          <button className="bg-blue-300 p-4 rounded-xl lg:w-32">Enter</button>
+          <button
+            className="bg-blue-300 p-4 rounded-xl lg:w-32"
+            onClick={handlePlay}
+          >
+            Enter
+          </button>
         </div>
         <h1 className="text-2xl font-mono">YOUTUBE VIDEO TITLE</h1>
         <div className="h-125 w-full mt-5 bg-green-300 flex items-center justify-center">
