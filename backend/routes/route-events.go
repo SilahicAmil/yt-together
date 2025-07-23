@@ -20,9 +20,6 @@ func joinRoom(ctx *gin.Context) {
 	//
 	// create websocket
 	events.Connect(ctx.Writer, ctx.Request, roomID)
-	// create handlePlayer function for like pause and play and loading new video
-	// start with pause and play for new
-	//
 }
 
 func leaveRoom(ctx *gin.Context) {

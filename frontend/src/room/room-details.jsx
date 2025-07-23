@@ -21,7 +21,7 @@ export default function RoomDetails() {
 
   return (
     //
-    // :Extract each one of these to its own component
+    // Extract each one of these to its own component
     // User and Watch History will be some type of reusable like card component
     //
     <>
