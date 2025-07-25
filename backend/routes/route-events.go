@@ -12,12 +12,9 @@ func newRoom(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"message": "Created 123!", "roomId": uuid.New()})
 }
 
-// make this into like a ws/:id
 func joinRoom(ctx *gin.Context) {
 	roomID := ctx.Param("id")
-	// ctx.JSON(http.StatusOK, gin.H{"message": "Joined Room ", "roomId": roomID})
 
-	//
 	// create websocket
 	events.Connect(ctx.Writer, ctx.Request, roomID)
 }

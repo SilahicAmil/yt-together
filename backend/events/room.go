@@ -19,14 +19,23 @@ func NewRoom(id string) *Room {
 }
 
 func (r *Room) AddClient(client *Client) {
+	// Lock it or else some funkyness happens
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
 	r.Clients[client] = true
 }
 
 func (r *Room) RemoveClient(client *Client) {
+	// Lock it or else some clients dont get removed idk
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
 	delete(r.Clients, client)
 }
 
 func (r *Room) BroadcastMessage(message string) {
+	// Lock it or else skips some messages
 	r.mu.Lock()
 	defer r.mu.Unlock()
 

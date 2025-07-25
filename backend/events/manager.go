@@ -3,7 +3,6 @@ package events
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -27,10 +26,6 @@ func Connect(w http.ResponseWriter, r *http.Request, roomID string) {
 		fmt.Println(err)
 		return
 	}
-
-	// Set the read and write deadlines to keep the connection alive longer
-	conn.SetReadDeadline(time.Now().Add(24 * time.Hour))  // Set a long read deadline (24 hours, for example)
-	conn.SetWriteDeadline(time.Now().Add(24 * time.Hour)) // Same for write deadline
 
 	room, exists := rooms[roomID]
 

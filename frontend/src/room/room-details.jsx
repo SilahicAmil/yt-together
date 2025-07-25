@@ -17,31 +17,18 @@ export default function RoomDetails() {
     onClose: (event) =>
       console.log("WebSocket disconnected", event.code, event.reason),
     onError: (e) => console.error("WebSocket error", e),
-    share: true,
     shouldReconnect: () => true,
   });
 
   useEffect(() => {
     if (lastMessage !== null) {
       console.log(lastMessage.data); // Logs: '["Paused video!"]'
-      console.log(typeof lastMessage.data); // Logs: string
 
-      let parsedData;
+      var parsedData = JSON.parse(lastMessage.data);
 
-      try {
-        parsedData = JSON.parse(lastMessage.data);
-      } catch (e) {
-        console.error("Failed to parse message:", e);
-        return;
-      }
-
-      if (Array.isArray(parsedData) && parsedData[0] === "Paused video!") {
-        console.log("am I here?");
+      if (parsedData[0] === "Paused video!") {
         setVideoPlaying(false);
-      } else if (
-        Array.isArray(parsedData) &&
-        parsedData[0] === "Playing video!"
-      ) {
+      } else if (parsedData[0] === "Playing video!") {
         setVideoPlaying(true);
       }
     }
@@ -58,16 +45,17 @@ export default function RoomDetails() {
     // Push to some type of history
   }
 
+  // Could probably combine both of these into 1 function
+  // Just check the current state of videoPlaying. We know if its true it is
+  // So the user want to pause it and vice versa
+  // Something i'll do later
   function handlePlay() {
-    console.log("here?");
     sendJsonMessage({ action: "play" });
   }
 
   function handlePause() {
-    // setVideoPlaying(false);
     sendJsonMessage({ action: "pause" });
   }
-  // console.log(playerRef);
 
   return (
     //
