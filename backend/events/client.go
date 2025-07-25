@@ -2,6 +2,7 @@ package events
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/gorilla/websocket"
 )
@@ -10,18 +11,24 @@ type Client struct {
 	Conn *websocket.Conn
 	Send chan []string
 	Room *Room
+	mu   sync.Mutex
 }
 
 func NewClient(conn *websocket.Conn, room *Room) *Client {
 	// Create new client
 	return &Client{
-		conn,
-		make(chan []string),
-		room}
+		Conn: conn,
+		Send: make(chan []string),
+		Room: room}
 }
 
 func (c *Client) readPump() {
-	// same here probably close connection
+	// DO this or else the frontend wont re-connect
+	defer func() {
+		c.Room.RemoveClient(c) // Remove Client
+		c.Conn.Close()         // Close socket
+	}()
+
 	for {
 		var message map[string]any
 		err := c.Conn.ReadJSON(&message)
@@ -43,7 +50,12 @@ func (c *Client) readPump() {
 }
 
 func (c *Client) writePump() {
-	// Maybe wanna close connection idk
+	// DO this or else the frontend wont re-connect
+	defer func() {
+		c.Room.RemoveClient(c) // Remove Client
+		c.Conn.Close()         // Close socket
+	}()
+
 	for message := range c.Send {
 		err := c.Conn.WriteJSON(message)
 
