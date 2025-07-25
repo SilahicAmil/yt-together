@@ -24,7 +24,12 @@ export default function RoomDetails() {
     if (lastMessage !== null) {
       console.log(lastMessage.data); // Logs: '["Paused video!"]'
 
-      var parsedData = JSON.parse(lastMessage.data);
+      var parsedData;
+      try {
+        var parsedData = JSON.parse(lastMessage.data);
+      } catch (e) {
+        console.log(e);
+      }
 
       if (parsedData[0] === "Paused video!") {
         setVideoPlaying(false);
