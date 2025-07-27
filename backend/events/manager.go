@@ -38,14 +38,10 @@ func Connect(w http.ResponseWriter, r *http.Request, roomID string) {
 	client := NewClient(conn, room)
 	room.AddClient(client)
 
-	// defer room.RemoveClient(client)
 	// Start reading and writing goroutines
 	go client.readPump()
 	go client.writePump()
 
 	// Send an initial message client.Send
 	client.Send <- []string{"Welcome to my room"}
-
-	// Can also broadcast a message to all clients in the ROom
-	room.BroadcastMessage("Whats up guys")
 }
