@@ -29,6 +29,7 @@ function RoomPlayer({ id }) {
       } catch (e) {
         // Stop playing video
         setVideoPlaying(false);
+        // Maybe have some type of error state or something idk
       }
 
       if (parsedData[0] === "Paused video!") {
